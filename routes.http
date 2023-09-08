@@ -1,0 +1,28 @@
+POST https://todolist-theta-seven.vercel.app/videos
+Content-Type: application/json
+
+{
+ "title":"Video 03 node",
+ "description":"Esse é o primeiro vídeo",
+ "duration":180
+}
+
+
+### 
+
+GET https://todolist-theta-seven.vercel.app/videos?search
+# =node
+###
+
+PUT https://todolist-theta-seven.vercel.app/videos/cf976ff2-f8b6-4c41-8de0-14950dfbdaf2
+Content-Type: application/json
+
+{
+ "title":"Video 001",
+ "description":"Esse é o primeiro vídeo",
+ "duration":180
+}
+
+### 
+
+DELETE https://todolist-theta-seven.vercel.app/videos/06fba2aa-a398-4a8b-a06c-ca372025097b

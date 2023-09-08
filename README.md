@@ -1,2 +1,1 @@
-# todolist
-API NODE
+<!-- GET, POST, PUT, DELETE, PATCH -->
