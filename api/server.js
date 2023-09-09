@@ -1,10 +1,9 @@
-import { fastify } from 'fastify';
-import { DatabasePostgres } from '../database-postgres.js';
+const fastify = require('fastify')({ logger: true });
+const { DatabasePostgres } = require('./database-postgres.js');
 
-const server = fastify();
 const database = new DatabasePostgres();
 
-server.post('/videos', async (request, response) => {
+fastify.post('/videos', async (request, response) => {
     const { title, description, duration } = request.body;
 
     await database.create({
@@ -16,13 +15,13 @@ server.post('/videos', async (request, response) => {
     return response.status(201).send();
 });
 
-server.get('/videos', async (request) => {
+fastify.get('/videos', async (request) => {
     const search = request.query.search;
     const videos = await database.list(search);
     return videos;
 });
 
-server.put('/videos/:id', async (request, response) => {
+fastify.put('/videos/:id', async (request, response) => {
     const videoId = request.params.id;
     const { title, description, duration } = request.body;
 
@@ -35,10 +34,19 @@ server.put('/videos/:id', async (request, response) => {
     return response.status(204).send();
 });
 
-server.delete('/videos/:id', async (request, response) => {
+fastify.delete('/videos/:id', async (request, response) => {
     const videoId = request.params.id;
     await database.delete(videoId);
     return response.status(204).send();
 });
 
-export default server;
+fastify.listen({
+    host: '0.0.0.0',
+    port: process.env.PORT || 3333,
+}, (err, address) => {
+    if (err) {
+        console.error(err);
+        process.exit(1);
+    }
+    console.log(`Server is listening on ${address}`);
+});
